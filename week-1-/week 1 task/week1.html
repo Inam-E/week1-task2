@@ -1,37 +1,112 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Week 1 Form</title>
-	 <link rel="stylesheet" href="week1.css" type="text/css"/>
-	 <script scr="week1.js" type="text/javascript"></script>
+  <head>
+    <title>Simple Form</title>
+    <style>
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      select {
+        display: block;
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+      .error {
+        color: red;
+        font-size: 12px;
+        margin-top: -10px;
+        margin-bottom: 10px;
+      }
+      .success {
+        color: green;
+        font-size: 16px;
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+      .error-field {
+        border-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Simple Form</h1>
+    <form id="simple-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
 
-</head>
-<body>
-	<h1>Simple Form</h1>
-	<form id="simple-form">
-		<label for="name">Name:</label>
-		<input type="text" id="name" name="name" required/>
-		<label for= "email">Email:</label>
-		<input type="email" id="email" name="email" required/>
-		<span id="email-error" class="error"></span>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+      <span id="email-error" class="error"></span>
 
-		<label for="phone">Phone:</label>
-		<input type="text" id="phone" name="phone" required/>
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" name="phone" required />
 
-		<label for="gender">Gender:</label>
-		<select id="gender" name="gender" required/>
-			<option value=""></option>
-			<option value="male">Male</option>
-			<option value="female">Female</option>
-			<option value="other">Other</option>
-		</select>
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value=""></option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
 
-		<label for="password">Password:</label>
-		<input type="password" id="password" name="password" required/>
-		<input type="submit" value="Submit" />
-	</form>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
 
-</body>
-</html>
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script>
+      const form = document.getElementById("simple-form");
+      const nameInput = document.getElementById("name");
+      const emailInput = document.getElementById("email");
+      const phoneInput = document.getElementById("phone");
+      const genderInput = document.getElementById("gender");
+      const passwordInput = document.getElementById("password");
+      const emailError = document.getElementById("email-error");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if (!nameInput.value.trim()) {
+          nameInput.classList.add("error-field");
+        } else {
+          nameInput.classList.remove("error-field");
+        }
+
+        if (!emailInput.value.trim()) {
+          emailInput.classList.add("error-field");
+          emailError.textContent = "Email is required";
+        } else if (!isValidEmail(emailInput.value.trim())) {
+          emailInput.classList.add("error-field");
+          emailError.textContent = "Invalid email format";
+        } else {
+          emailInput.classList.remove("error-field");
+          emailError.textContent = "";
+        }
+
+        if (!phoneInput.value.trim()) {
+          phoneInput.classList.add("error-field");
+        } else {
+          phoneInput.classList.remove("error");
+
+          
